@@ -1,0 +1,10 @@
+{
+  "name": "action-figure-backend",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.19.0",
+    "multer": "^1.4.5",
+    "dotenv": "^16.4.5",
+    "openai": "^4.0.0"
+  }
+}
