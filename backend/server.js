@@ -2,17 +2,19 @@ import express from "express";
 import multer from "multer";
 import dotenv from "dotenv";
 import OpenAI from "openai";
+import cors from "cors";   // ✅ ADD THIS
 
 dotenv.config();
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
 
+// ✅ ENABLE CORS
+app.use(cors());
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
-
-app.use(express.static("frontend"));
 
 app.post("/generate", upload.single("photo"), async (req, res) => {
   const { username, interest } = req.body;
@@ -36,10 +38,11 @@ Soft lighting, blurred toy store background
 
     res.json({ url: image.data[0].url });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Image generation failed" });
   }
 });
 
 app.listen(3000, () => {
-  console.log("✅ Server running on port 3000");
+  console.log("Server running");
 });
